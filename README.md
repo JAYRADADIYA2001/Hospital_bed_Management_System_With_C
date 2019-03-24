@@ -3,6 +3,6 @@ hospital's bed management
 
 ## system_required
 ```bash
-codeblock
-dev c++
+Codeblocks
+Dev c++
 ```
