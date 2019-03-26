@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<string.h>//strlen,strcmp
 #include<time.h>//date
-#include<ctype.h>//isalph isnum
+#include<ctype.h>//isalpha isnum
 #define fileh "hospital.txt"
 #define fileb "bed.txt"
 #define filep "patient.txt"
