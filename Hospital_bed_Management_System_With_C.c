@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<string.h>//strlen,strcmp
 #include<time.h>//date
-#include<ctype.h>//isalpha isnum
+#include<ctype.h>//isalph isnum
 #define fileh "hospital.txt"
 #define fileb "bed.txt"
 #define filep "patient.txt"
@@ -9,7 +9,7 @@
 #define temp "temp.txt"
 #define systemc system("cls");
 
-FILE *fp,*fp1,*fp2,*fp3,*sp,*fe1,*fe2;
+FILE *bfp,*bfp1,*bfp2,*fp,*fp1,*fp2,*fp3,*sp,*fe1,*fe2;
 
 struct  hospital
 {
@@ -268,23 +268,23 @@ fclose(fp1);
 int bedallocation(int i1,int j1,int k1,int pid)
 {
     int i,j,k;
-    fp=fopen(fileh,"r");
-    fp1=fopen(fileb,"r");
-    fp2=fopen(temp,"w");
-    fread(&h,sizeof(h),1,fp);
+    bfp=fopen(fileh,"r");
+    bfp1=fopen(fileb,"r");
+    bfp2=fopen(temp,"w");
+    fread(&h,sizeof(h),1,bfp);
     for(i=1;i<=h.floors;i++)
     {
         for(j=1;j<=h.room[i];j++)
         {
             for(k=1;k<=h.bed[i][j];k++)
             {
-               fread(&b[i][j][k],sizeof(b[i][j][k]),1,fp1);
+               fread(&b[i][j][k],sizeof(b[i][j][k]),1,bfp1);
                if(i==i1&&j==j1&&k==k1)
                {
                    if(b[i][j][k].p_id==0)
                    {
                        b[i][j][k].p_id=pid;
-                       fwrite(&b[i][j][k],sizeof(b[i][j][k]),1,fp2);
+                       fwrite(&b[i][j][k],sizeof(b[i][j][k]),1,bfp2);
                    }
                    else{
                     return 0;
@@ -292,80 +292,80 @@ int bedallocation(int i1,int j1,int k1,int pid)
                }
                else
                {
-                   fwrite(&b[i][j][k],sizeof(b[i][j][k]),1,fp2);
+                   fwrite(&b[i][j][k],sizeof(b[i][j][k]),1,bfp2);
                }
             }
         }
     }
-    fclose(fp1);
-    fclose(fp2);
+    fclose(bfp1);
+    fclose(bfp2);
 
-    fp2=fopen(fileb,"w");
-    fp1=fopen(temp,"r");
+    bfp2=fopen(fileb,"w");
+    bfp1=fopen(temp,"r");
     for(i=1;i<=h.floors;i++)
     {
         for(j=1;j<=h.room[i];j++)
         {
             for(k=1;k<=h.bed[i][j];k++)
             {
-                fread(&b[i][j][k],sizeof(b[i][j][k]),1,fp1);
-                   fwrite(&b[i][j][k],sizeof(b[i][j][k]),1,fp2);
+                fread(&b[i][j][k],sizeof(b[i][j][k]),1,bfp1);
+                   fwrite(&b[i][j][k],sizeof(b[i][j][k]),1,bfp2);
             }
         }
     }
-    fclose(fp1);
-    fclose(fp2);
-    fclose(fp);
+    fclose(bfp1);
+    fclose(bfp2);
+    fclose(bfp);
     return 1;
 }
 
 int beddeallocation(int i1,int j1,int k1)
 {
     int i,j,k;
-    fp=fopen(fileh,"r");
-    fp1=fopen(fileb,"r");
-    fp2=fopen(temp,"w");
-    fread(&h,sizeof(h),1,fp);
+    bfp=fopen(fileh,"r");
+    bfp1=fopen(fileb,"r");
+    bfp2=fopen(temp,"w");
+    fread(&h,sizeof(h),1,bfp);
     for(i=1;i<=h.floors;i++)
     {
         for(j=1;j<=h.room[i];j++)
         {
             for(k=1;k<=h.bed[i][j];k++)
             {
-               fread(&b[i][j][k],sizeof(b[i][j][k]),1,fp1);
+               fread(&b[i][j][k],sizeof(b[i][j][k]),1,bfp1);
                if(i==i1&&j==j1&&k==k1)
                {
                    if(b[i][j][k].p_id!=0)
                    {
                        b[i][j][k].p_id=0;
-                       fwrite(&b[i][j][k],sizeof(b[i][j][k]),1,fp2);
+                       fwrite(&b[i][j][k],sizeof(b[i][j][k]),1,bfp2);
                    }
                }
                else
                {
-                   fwrite(&b[i][j][k],sizeof(b[i][j][k]),1,fp2);
+                   fwrite(&b[i][j][k],sizeof(b[i][j][k]),1,bfp2);
                }
             }
         }
     }
-    fclose(fp1);
-    fclose(fp2);
-    fp2=fopen(fileb,"w");
-    fp1=fopen(temp,"r");
+    fclose(bfp1);
+    fclose(bfp2);
+    bfp2=fopen(fileb,"w");
+    bfp1=fopen(temp,"r");
     for(i=1;i<=h.floors;i++)
     {
         for(j=1;j<=h.room[i];j++)
         {
             for(k=1;k<=h.bed[i][j];k++)
             {
-                   fread(&b[i][j][k],sizeof(b[i][j][k]),1,fp1);
-                   fwrite(&b[i][j][k],sizeof(b[i][j][k]),1,fp2);
+                   fread(&b[i][j][k],sizeof(b[i][j][k]),1,bfp1);
+                   fwrite(&b[i][j][k],sizeof(b[i][j][k]),1,bfp2);
             }
         }
     }
-    fclose(fp1);
-    fclose(fp2);
-    fclose(fp);
+    fclose(bfp1);
+    fclose(bfp2);
+    fclose(bfp);
     return 1;
 }
 
@@ -466,6 +466,7 @@ void input_patient()
     }
 fclose(fp2);fclose(fp);
 }
+
 void display_patient()
 {
     char l[10];
@@ -484,7 +485,7 @@ if(pid==0)
 
     printf("\nEnter patient id to search.:-");                   e=num();
 fp=fopen(filep,"r");
-if(fp)
+if(e>0&&e<=pid)
 {
 while((fread(&p,sizeof(p),1,fp))!=0)
 {
@@ -534,7 +535,7 @@ int i,j,k,z,a,c_b,e,pid;
     printf("\nEnter patient id to be discharged:-");               e=num();
     fp=fopen(filep,"r");
     fp2=fopen("temp1.txt","w");
-if(fp)
+if(e>0&&e<=pid)
 {
     while((fread(&p,sizeof(p),1,fp))!=0)
     {
@@ -580,8 +581,9 @@ if(z==1)
     fclose(fp2);
 fp=fopen("temp1.txt","r");
 fp1=fopen(filep,"w");
-fread(&p,sizeof(p),1,fp);
-    fwrite(&p,sizeof(p),1,fp1);
+while((fread(&p,sizeof(p),1,fp))!=0)
+   {
+       fwrite(&p,sizeof(p),1,fp1);}
 fclose(fp);
 fclose(fp1);
 }
