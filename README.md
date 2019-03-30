@@ -2,5 +2,7 @@
 hospital's bed management
 
 # system requirements
-```Codebloks
-Dev C++```
+```
+Codebloks
+Dev C++
+```
