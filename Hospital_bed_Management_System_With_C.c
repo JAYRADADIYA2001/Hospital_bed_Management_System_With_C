@@ -1,3 +1,4 @@
+
 #include<stdio.h>
 #include<string.h>//strlen,strcmp
 #include<time.h>//date
@@ -13,24 +14,24 @@ FILE *bfp,*bfp1,*bfp2,*fp,*fp1,*fp2,*fp3,*sp,*fe1,*fe2;
 
 struct  hospital
 {
-	char hname[20];
+	char hname[50];
 	int floors;
 	int nobeds;
-	int room[10];
-	int bed[10][10];
+	int room[100];
+	int bed[100][100];
 	int cpday;
 }h;
 struct beds
 {
     int p_id,b_id;
-}b[10][10][10];
+}b[100][100][100];
 struct date
 	{
 	    int dd,mm,yy;
 	}today;
  struct patient
 {
-	char name[20],gender[2],phone_num[11];
+	char name[100],gender[2],phone_num[11];
 	int age,p_id,ab_id,total_amount;
 	struct date admit_date;
 	struct date discharge_date;
@@ -38,7 +39,7 @@ struct date
 
  struct emp
  {
-     char ename[20],password[10],eid[20];
+     char ename[100],password[10],eid[20];
  };
 //fumtions for take inputs
 struct date gdate();
@@ -80,11 +81,14 @@ int main()
         fe1=fopen(filee,"w");
         fclose(fe1);
         insert_emp();
+        systemc
+        main();
     }
     else
         fclose(fe1);
 
     i=passwd();
+    systemc
     if(i==1)
     {
     today=gdate();
@@ -700,7 +704,7 @@ struct date gdate()
 void get(char *p)
 {
     int i=0,j,k=0;
-    char na[20];
+    char na[100];
    getc: scanf(" ");
     scanf("%[^\n]s",na);
     i=0,k=0;
@@ -896,10 +900,6 @@ int avlempid(char *p)
     fe1=fopen(filee,"r");
     while((fread(&e1,sizeof(e1),1,fe1))!=0)
     {
-        if(feof(fe1))
-         {
-             break;
-         }
         if((strcmp(p,e1.eid))==0)
         {
             fclose(fe1);
@@ -914,24 +914,24 @@ int avlempid(char *p)
 void insert_emp()
 {
      struct emp e1,e;
-     int i;
-     char id[30];
-    emp: printf("Enter id no");
+     int p;
+     char id[20];
+    emp: printf("Enter id no   :");
      gete(id);
-     i=avlempid(id);
-     if(i==1)
+     p=avlempid(id);
+     if(p==1)
      {
-         fe2=fopen(filee,"a");
-         strcpy(e1.eid,id);
-     printf("Enter the name ");
-     gete(e1.ename);
-     printf("Enter the password ");
-     gete(e1.password);
-      printf("%s\t\t %s\n",e1.eid,e1.ename);
 
+         strcpy(e1.eid,id);
+     printf("Enter the name  :");
+     gete(e1.ename);
+     printf("Enter the password :");
+     gete(e1.password);
+       printf("%s\t\t %s\n",e1.eid,e1.ename);
+      fe2=fopen(filee,"a");
      fwrite(&e1,sizeof(e1),1,fe2);
      fclose(fe2);
-     display_employe();
+     return;
      }
      else{
         printf("\nThis employee id is not available\n");
@@ -947,15 +947,11 @@ void display_employe()
      {
          printf("\n file not open");
      }
-     printf("\n employe no \t name \n ");
+     printf("\nemploye no \t \tname \n");
      while((fread(&e1,sizeof(e1),1,fe1))!=0)
      {
-
          printf("%s\t\t %s\n",e1.eid,e1.ename);
-         if(feof(fe1))
-         {
-             break;
-         }
+
      }
      fclose(fe1);
 }
@@ -968,7 +964,7 @@ int passwd()
 char pw[20],id[20];
 int i=0,j,avl;
 char ch;
-      printf("\nEnter employe id");
+      printf("\nEnter employe id  :");
       gete(id);
       j=avlempid(id);
       if(j==1)
@@ -984,7 +980,7 @@ char ch;
             {
           pass:
               i=0;
-            printf("\nEnter  password");
+            printf("\nEnter  password :");
             while(1)
             {
                 ch=getch();
@@ -1024,5 +1020,4 @@ char ch;
         }
     }
 }
-
 
