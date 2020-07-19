@@ -8,5 +8,5 @@ Dev C++
 ```
 # credits
 ```
-Taher lunawadi
+*[Taher lunawadi][https://github.com/taher07]
 ```
