@@ -6,3 +6,7 @@ hospital's bed management
 Codebloks
 Dev C++
 ```
+# credits
+```
+Taher lunawadi
+```
